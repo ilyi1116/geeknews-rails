@@ -6,7 +6,7 @@ RSpec.describe Article, :type => :model do
   describe 'temp_thumbnail_path' do
     it 'return the absolute path to the temporary thumbnail' do
       article = Article.new(image_url: "hoge.fuga_image")
-      expect(article.temp_thumbnail_path).to eq "#{Rails.root}/dragonfly/hoge-fuga_image.jpg"
+      expect(article.temp_thumbnail_path).to eq "#{Dragonfly.app.datastore.root_path}/hoge-fuga_image.jpg"
     end
   end
 end
