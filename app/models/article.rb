@@ -1,6 +1,8 @@
 require 'dragonfly'
+require 'stringio'
 class Article < ActiveRecord::Base
-  attr_accessor :image_url
+  attr_accessor :image
+  attr_accessor :link
 
 
   #Generate thumnail on validate so we can return errors on failure
@@ -16,8 +18,9 @@ class Article < ActiveRecord::Base
     # a) there are already other validation errors
     # b) an image was manually specified
     # c) an image is already stored and the URL hasn't changed
-      skip_generate = self.errors.any? || (self.image_changed? ||
-          (self.image_stored? && !self.url_changed?))
+      #skip_generate = self.errors.any? || (self.image_changed? ||
+      skip_generate = self.errors.any? || self.image_stored?
+      #               (self.image_stored? && !self.url_changed?))
     # p "*** generating thumbnail: #{!skip_generate}"
     return if skip_generate
   
@@ -37,11 +40,18 @@ class Article < ActiveRecord::Base
 
   # Return the absolute path to the temporary thumbnail file
   def temp_thumbnail_path
-    File.expand_path("#{self.image_url.parameterize.slice(0, 20)}.jpg", Dragonfly.app.datastore.root_path)
+    File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", Dragonfly.app.datastore.root_path)
   end
 
   # Cleanup the temporary thumbnail image
   def cleanup_temp_thumbnail
     File.delete(temp_thumbnail_path) rescue 0
   end
+
+  # check if file is already stored
+  def image_stored?
+    self.image.present?
+  end
+
+
 end
