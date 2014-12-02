@@ -51,3 +51,7 @@ gem 'mysql2'
 
 gem 'dragonfly', '~> 1.0.7'
 gem 'carrierwave'
+
+# A ruby wrapper for ImageMagick 
+# I was using RMagic and loving it, but it was eating up huge amouts of memory.
+gem 'mini_magick', '3.8.0'
