@@ -41,7 +41,7 @@ namespace :deploy do
 
   desc "Create dragonfly directory"
   task :create_dragonfly_dir do
-    run "mkdir -p #{current_path}/public/system/dragonfly/production"
+    execute "mkdir -p #{current_path}/public/system/dragonfly/production"
   end
 
   # if preload_app:true  and you need capistrano 
