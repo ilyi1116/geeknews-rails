@@ -80,8 +80,8 @@ namespace :deploy do
   end
 
 
-  after :setup, :create_dragonfly_dir
   before :starting, :upload
   after :publishing, :restart
+  after :publishing, :create_dragonfly_dir
 
 end
