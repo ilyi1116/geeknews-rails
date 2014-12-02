@@ -46,7 +46,7 @@ namespace :deploy do
     invoke 'unicorn:legacy_restart'
   end
 
-   
+  # 
   desc 'Upload database.yml'
   task :upload do
     on roles(:app) do |host|
@@ -58,7 +58,7 @@ namespace :deploy do
   end
   
 
-  desc 'execute before deploy'
+  desc 'execute create database before deploy'
   task :db_create do
     on roles(:db) do |host|
       execute "mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS geeknews_production;'"
