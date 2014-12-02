@@ -1,10 +1,6 @@
 require 'dragonfly'
 require 'stringio'
 class Article < ActiveRecord::Base
-  # you can add the Dragonfly attatchment methods image and image=
-  extend Dragonfly::Model
-  # Let's say you have ha model with methods image_uid and image_uid=
-  #attr_accessor :image_uid
   dragonfly_accessor :image # defines a reader/writer for image
 
   #Generate thumnail on validate so we can return errors on failure
