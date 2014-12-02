@@ -1,6 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.3.3'
 
+
 set :application, 'geeknews'
 #set :repo_url, 'git@example.com:me/my_repo.git'
 set :repo_url, 'https://github.com/tjnet/geeknews-rails.git'
@@ -36,6 +37,9 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/ca
 set :keep_releases, 5
 set :unicorn_rack_env, "none"
 set :unicorn_config_path, 'config/unicorn.rb'
+
+# setting for whenever
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 namespace :deploy do
 
