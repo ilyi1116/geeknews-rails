@@ -55,3 +55,10 @@ gem 'carrierwave'
 # A ruby wrapper for ImageMagick 
 # I was using RMagic and loving it, but it was eating up huge amouts of memory.
 gem 'mini_magick', '3.8.0'
+
+# install capistrano
+group :development do
+  gem 'capistrano',  '~> 3.1  '
+  gem 'capistrano-rails', '~> 1.1'
+end
+
