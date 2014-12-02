@@ -39,6 +39,11 @@ set :unicorn_config_path, 'config/unicorn.rb'
 
 namespace :deploy do
 
+  desc "Create dragonfly directory"
+  task :create_dragonfly_dir do
+    run "mkdir -p #{relase_path}/public/system/dragonfly/production"
+  end
+
   # if preload_app:true  and you need capistrano 
   # to cleanup your oldbin pid use:
   desc 'Restart application'
@@ -74,6 +79,8 @@ namespace :deploy do
     end
   end
 
+
+  after :setup, :create_dragonfly_dir
   before :starting, :upload
   after :publishing, :restart
 
