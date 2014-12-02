@@ -63,3 +63,5 @@ group :development do
   gem 'capistrano3-unicorn'
 end
 
+# manage crontab
+gem 'whenever', :require => false
