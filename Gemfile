@@ -50,3 +50,4 @@ end
 gem 'mysql2'
 
 gem 'dragonfly', '~> 1.0.7'
+gem 'carrierwave'
