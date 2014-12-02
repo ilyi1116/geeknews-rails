@@ -1,17 +1,25 @@
+environment = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'production'
+
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3) # 子プロセスいくつ立ち上げるか
 timeout 15 #15秒Railsが反応しなければWorkerをkillしてタイムアウト
 preload_app true #後述
 
 # 同一マシンでNginxとプロキシ組むならsocketのが高速ぽい(後述ベンチ)
 # listen /path/to/rails/tmp/unicorn.sock
-listen 3000
+if environment == 'production'
+  listen 80
+else
+  listen 3000
+end
 
 # paths
-app_path = "/var/www/rails/geeknews"
-working_directory = "#{app_path}/current"
-# pid file path Capistranoとか使う時は要設定か
-# set master PID location
-pid "#{app_path}/current/tmp/pids/unicorn.pid"
+if environment == 'production'
+  app_path = "/var/www/rails/geeknews"
+  working_directory = "#{app_path}/current"
+  # pid file path Capistranoとか使う時は要設定か
+  # set master PID location
+  pid "#{app_path}/current/tmp/pids/unicorn.pid"
+end
 
 # ログの設定方法.
 stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
