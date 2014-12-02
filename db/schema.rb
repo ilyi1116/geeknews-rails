@@ -11,11 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201064639) do
+ActiveRecord::Schema.define(version: 20141202125619) do
 
   create_table "articles", force: true do |t|
+    t.integer  "category_id"
+    t.string   "title"
+    t.string   "link"
+    t.text     "description"
+    t.string   "image_uid"
+    t.string   "image_name"
+    t.datetime "published"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "sort_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feeds", force: true do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.string   "url"
+    t.datetime "last_fetched"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feeds", ["url"], name: "index_feeds_on_url", unique: true, using: :btree
 
 end

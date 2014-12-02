@@ -1,15 +1,17 @@
 require 'dragonfly'
 require 'stringio'
 class Article < ActiveRecord::Base
-  attr_accessor :image
-  attr_accessor :link
-
+  # you can add the Dragonfly attatchment methods image and image=
+  extend Dragonfly::Model
+  # Let's say you have ha model with methods image_uid and image_uid=
+  #attr_accessor :image_uid
+  dragonfly_accessor :image # defines a reader/writer for image
 
   #Generate thumnail on validate so we can return errors on failure
-  validate :generate_thumbnail_from_url
+  after_create :generate_thumbnail_from_url
 
   #Cleanup temp files when we are done
-  after_save :cleanup_temp_thumbnail
+  #after_save :cleanup_temp_thumbnail
 
   # Generate a thumbnail from the remote URL
   def generate_thumbnail_from_url
@@ -27,12 +29,13 @@ class Article < ActiveRecord::Base
     # Generate and assign an image or set a validation error
     begin
       tempfile = temp_thumbnail_path
-      cmd = "wkhtmltoimage --quality 95 \"#{self.url}\" \"#{tempfile}\""
-      #   p "*** grabbing thumbnail: #{cmd}"
+      cmd = "wkhtmltoimage --quality 95 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
+         p "*** grabbing thumbnail: #{cmd}"
       system(cmd) # sometimes returns false even if image was saved
       self.image = File.new(tempfile) # will throw if not saved
+      self.save
     rescue => e
-      #   p "*** thumbnail error: #{e}"
+         p "*** thumbnail error: #{e}"
       self.errors.add(:base, "Cannot generate thumbnail. Is your URL valid?")
     ensure
     end
