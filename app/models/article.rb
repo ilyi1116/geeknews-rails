@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
   after_create :generate_thumbnail_from_url
 
   #Cleanup temp files when we are done
-  #after_save :cleanup_temp_thumbnail
+  after_save :cleanup_temp_thumbnail
 
   # Generate a thumbnail from the remote URL
   def generate_thumbnail_from_url
