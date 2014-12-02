@@ -6,9 +6,12 @@ preload_app true #後述
 # listen /path/to/rails/tmp/unicorn.sock
 listen 3000
 
+# paths
+app_path = "/var/www/rails/geeknews"
+working_directory = "#{app_path}/current"
 # pid file path Capistranoとか使う時は要設定か
 # set master PID location
-pid "#{Rails.root}/tmp/pids/unicorn.pid"
+pid "#{app_path}/current/tmp/pids/unicorn.pid"
 
 # ログの設定方法.
 #stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
