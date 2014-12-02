@@ -53,4 +53,11 @@ Geeknews::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  # see http://codedecoder.wordpress.com/2013/02/21/sample-rest-api-example-in-rails/
+  namespace :api do
+    namespace :v1 do
+      resources :article, :defaults => {:format => 'json' }
+    end
+  end
 end

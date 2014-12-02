@@ -4,6 +4,7 @@ capybara-*.html
 /log
 /tmp
 /tmp/*.pid
+/tmp/pids
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system

@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
     # Generate and assign an image or set a validation error
     begin
       tempfile = temp_thumbnail_path
-      cmd = "wkhtmltoimage --quality 95 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
+      cmd = "wkhtmltoimage --quality 50 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
          p "*** grabbing thumbnail: #{cmd}"
       system(cmd) # sometimes returns false even if image was saved
       self.image = File.new(tempfile) # will throw if not saved
@@ -56,5 +56,20 @@ class Article < ActiveRecord::Base
     self.image.present?
   end
 
-
+ # 
+ #= return articles as array of hash
+ #
+ def self.list(request)
+   res = Array.new
+   Article.all.each do |article|
+     res.push({
+       :category_id => article.category_id,
+       :title => article.title,
+       :link => article.link,
+       :description => article.description,
+       :image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
+     })
+   end
+   res
+ end
 end
