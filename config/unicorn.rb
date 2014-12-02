@@ -14,8 +14,8 @@ working_directory = "#{app_path}/current"
 pid "#{app_path}/current/tmp/pids/unicorn.pid"
 
 # ログの設定方法.
-#stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
-#stdout_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
+stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
+stdout_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
 
 before_fork do |server, worker|
   old_pid = "#{ server.config[:pid] }.oldbin"
