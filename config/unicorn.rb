@@ -7,7 +7,8 @@ preload_app true #後述
 # 同一マシンでNginxとプロキシ組むならsocketのが高速ぽい(後述ベンチ)
 # listen /path/to/rails/tmp/unicorn.sock
 if rails_env == 'production'
-  listen 80
+  #listen 80
+  listen 3000
 else
   listen 3000
 end
