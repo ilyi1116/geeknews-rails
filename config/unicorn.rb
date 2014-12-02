@@ -7,7 +7,8 @@ preload_app true #後述
 listen 3000
 
 # pid file path Capistranoとか使う時は要設定か
-# pid /path/to/rails/tmp/pids/unicorn.pid
+# set master PID location
+pid "#{app_path}/tmp/pids/unicorn.pid"
 
 # ログの設定方法.
 #stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
