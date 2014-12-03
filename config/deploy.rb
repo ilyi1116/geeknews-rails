@@ -46,8 +46,8 @@ namespace :deploy do
   desc "Create dragonfly directory"
   task :create_dragonfly_dir do
     on roles(:app) do |host|
-      if test "[ ! -d #{current_path}/public/system/dragonfly/production ]"
-        execute "mkdir -p #{current_path}/public/system/dragonfly/production"
+      if test "[ ! -d #{release_path}/public/system/dragonfly/production ]"
+        execute "mkdir -p #{release_path}/public/system/dragonfly/production"
       end
     end
   end
