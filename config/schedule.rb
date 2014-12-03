@@ -17,7 +17,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every 1.day, :at => '11:35 pm' do
+every 1.day, :at => '11:55 pm' do
   rake "update_article:execute"
 end
 # Learn more: http://github.com/javan/whenever
