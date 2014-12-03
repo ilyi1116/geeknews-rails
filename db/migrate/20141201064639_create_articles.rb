@@ -6,8 +6,8 @@ class CreateArticles < ActiveRecord::Migration
       t.string :link
       t.text :description
       # Handling thumbnails
-      t.string :image_uid, :default => '', :null => false
-      t.string :image_name, :default => '', :null => false # if you want urls to end with the original filename
+      t.string :image_uid, :default => ''
+      t.string :image_name, :default => '' # if you want urls to end with the original filename
       t.datetime :published
 
       t.timestamps

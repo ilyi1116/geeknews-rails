@@ -89,7 +89,7 @@ namespace :deploy do
 
 
   before :starting, :upload
+  before :publishing, :create_dragonfly_dir
   after :publishing, :restart
-  after :publishing, :create_dragonfly_dir
 
 end

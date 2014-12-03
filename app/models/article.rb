@@ -58,12 +58,13 @@ class Article < ActiveRecord::Base
  def self.list(request)
    res = Array.new
    Article.all.each do |article|
+     next if article.image_uid.blank?
      res.push({
        :category_id => article.category_id,
        :title => article.title,
        :link => article.link,
        :description => article.description,
-       :image_url => (article.image_name.blank?) ? '' : "#{request.protocol}#{request.host_with_port}#{article.image.url}",
+       :image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
      })
    end
    res
