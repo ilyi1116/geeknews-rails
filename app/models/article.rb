@@ -63,7 +63,7 @@ class Article < ActiveRecord::Base
        :title => article.title,
        :link => article.link,
        :description => article.description,
-       :image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
+       :image_url => (article.image.blank?) ? '' : "#{request.protocol}#{request.host_with_port}#{article.image.url}",
      })
    end
    res
