@@ -7,9 +7,7 @@ Things you may want to cover:
 
 * Ruby version
 
-  ```
   2.1.2
-  ```
 
 * System dependencies
 
@@ -21,15 +19,11 @@ rake db:migrate:reset
 
 * Database initialization
 
-  ```
-  rake db:seed`
-  ```
+  rake db:seed
 
 * How to run the test suite
 
-  ```
-  rspec`
-  ```
+  rspec
 
 * Services (job queues, cache servers, search engines, etc.)
 
@@ -37,9 +31,7 @@ rake db:migrate:reset
 
 ### Deploy to production
 
-  ```
-  cap production deploy`
-  ```
+  cap production deploy
 
 * ...
 
