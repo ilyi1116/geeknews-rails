@@ -30,7 +30,6 @@ class Article < ActiveRecord::Base
       cmd = "wkhtmltoimage --quality 50 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
          p "*** grabbing thumbnail: #{cmd}"
       system(cmd) # sometimes returns false even if image was saved
-      #self.image = File.new(tempfile) # will throw if not saved
       
       self.photo = File.new(tempfile) # will throw if not saved
       self.save
@@ -43,7 +42,6 @@ class Article < ActiveRecord::Base
 
   # Return the absolute path to the temporary thumbnail file
   def temp_thumbnail_path
-    #File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", Dragonfly.app.datastore.root_path)
     File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", "#{Rails.root}/public/system")
   end
 
@@ -55,7 +53,6 @@ class Article < ActiveRecord::Base
   # check if file is already stored
   def image_stored?
     self.photo.present?
-    #self.image.present?
   end
 
  # 
@@ -69,7 +66,6 @@ class Article < ActiveRecord::Base
        :title => article.title,
        :link => article.link,
        :description => article.description,
-       #:image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
        :image_url =>(article.photo.blank?) ? '' :  "#{request.protocol}#{request.host_with_port}#{article.photo.url}",
      })
    end
