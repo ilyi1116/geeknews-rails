@@ -25,3 +25,45 @@ describe 'calc' do
     expect(10-1).to eq 9
   end
 end
+
+describe 'four arithmetic operations' do
+  it 'you can do everything' do
+    expect(1 + 2).to eq 3
+    expect(10 - 1).to eq 9
+    expect(4 * 8).to eq 32
+    expect(40 / 5).to eq 8
+  end
+end
+
+describe 'four arithmetic operations' do
+  describe 'addition' do
+    it '1+1=2' do
+      expect(1 + 1).to eq 2
+    end
+  end
+  describe 'subtraction' do
+    it '10-1=9' do
+      expect(10 - 1).to eq 9
+    end
+  end
+end
+
+describe Person do
+  describe '#greet' do
+    before do
+      @params = {name: 'たろう'}
+    end
+    context  '12歳以下の場合' do
+      it 'ひらがなで答えること' do
+        user = Person.new(@params.merge(age: 12))
+        expect(user.greet).to eq 'ぼくはたろうだよ'
+      end
+    end
+    context '13歳以上の場合、' do
+      it '漢字で答えること' do
+        user = Person.new(@params.merge(age:13))
+        expect(user.greet).to eq '僕はたろうです'
+      end
+    end
+  end
+end
