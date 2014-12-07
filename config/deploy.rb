@@ -56,7 +56,8 @@ namespace :deploy do
   # to cleanup your oldbin pid use:
   desc 'Restart application'
   task :restart do
-    invoke 'unicorn:legacy_restart'
+    #invoke 'unicorn:legacy_restart'
+    invoke 'unicorn:reload'
   end
 
   # 
