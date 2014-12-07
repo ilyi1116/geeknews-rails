@@ -1,7 +1,9 @@
 require 'dragonfly'
 require 'stringio'
+require 'carrierwave/orm/activerecord'
 class Article < ActiveRecord::Base
-  dragonfly_accessor :image # defines a reader/writer for image
+  #dragonfly_accessor :image # defines a reader/writer for image
+  mount_uploader :photo, PictureUploader
 
   #Generate thumnail on validate so we can return errors on failure
   after_create :generate_thumbnail_from_url
@@ -28,7 +30,9 @@ class Article < ActiveRecord::Base
       cmd = "wkhtmltoimage --quality 50 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
          p "*** grabbing thumbnail: #{cmd}"
       system(cmd) # sometimes returns false even if image was saved
-      self.image = File.new(tempfile) # will throw if not saved
+      #self.image = File.new(tempfile) # will throw if not saved
+      
+      self.photo = File.new(tempfile) # will throw if not saved
       self.save
     rescue => e
          p "*** thumbnail error: #{e}"
@@ -39,7 +43,8 @@ class Article < ActiveRecord::Base
 
   # Return the absolute path to the temporary thumbnail file
   def temp_thumbnail_path
-    File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", Dragonfly.app.datastore.root_path)
+    #File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", Dragonfly.app.datastore.root_path)
+    File.expand_path("#{self.link.parameterize.slice(0, 20)}.jpg", "#{Rails.root}/public/system")
   end
 
   # Cleanup the temporary thumbnail image
@@ -49,7 +54,8 @@ class Article < ActiveRecord::Base
 
   # check if file is already stored
   def image_stored?
-    self.image.present?
+    self.photo.present?
+    #self.image.present?
   end
 
  # 
@@ -58,13 +64,13 @@ class Article < ActiveRecord::Base
  def self.list(request)
    res = Array.new
    Article.all.each do |article|
-     next if article.image_uid.blank?
      res.push({
        :category_id => article.category_id,
        :title => article.title,
        :link => article.link,
        :description => article.description,
-       :image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
+       #:image_url => "#{request.protocol}#{request.host_with_port}#{article.image.url}",
+       :image_url =>(article.photo.blank?) ? '' :  "#{request.protocol}#{request.host_with_port}#{article.photo.url}",
      })
    end
    res

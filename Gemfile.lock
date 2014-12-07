@@ -106,6 +106,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    rmagick (2.13.4)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
@@ -180,6 +181,7 @@ DEPENDENCIES
   mini_magick (= 3.8.0)
   mysql2
   rails (= 4.0.0)
+  rmagick
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.0)
   sdoc
