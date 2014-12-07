@@ -27,7 +27,7 @@ class Article < ActiveRecord::Base
     # Generate and assign an image or set a validation error
     begin
       tempfile = temp_thumbnail_path
-      cmd = "wkhtmltoimage --quality 50 --width 300 --height 300 \"#{self.link}\" \"#{tempfile}\""
+      cmd = "wkhtmltoimage --quality 40 --width 50 --height 50 \"#{self.link}\" \"#{tempfile}\""
          p "*** grabbing thumbnail: #{cmd}"
       system(cmd) # sometimes returns false even if image was saved
       
