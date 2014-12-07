@@ -29,8 +29,6 @@ rake db:migrate:reset
 
 * Deployment instructions
 
-### Deploy to production
-
   cap production deploy
 
 * ...
