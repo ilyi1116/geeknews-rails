@@ -2,7 +2,7 @@ rails_env = ENV['RAILS_ENV'] || 'production'
 
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3) # 子プロセスいくつ立ち上げるか
 timeout 15 #15秒Railsが反応しなければWorkerをkillしてタイムアウト
-preload_app true #後述
+preload_app false #後述
 
 # 同一マシンでNginxとプロキシ組むならsocketのが高速ぽい(後述ベンチ)
 # listen /path/to/rails/tmp/unicorn.sock
