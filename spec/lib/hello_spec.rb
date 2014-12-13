@@ -54,15 +54,41 @@ describe Person do
       @params = {name: 'たろう'}
     end
     context  '12歳以下の場合' do
+      before do
+        @params.merge!(age: 12)
+      end
       it 'ひらがなで答えること' do
-        user = Person.new(@params.merge(age: 12))
+        user = Person.new(@params)
         expect(user.greet).to eq 'ぼくはたろうだよ'
       end
     end
     context '13歳以上の場合、' do
+      before do
+        @params.merge!(age: 13)
+      end
       it '漢字で答えること' do
-        user = Person.new(@params.merge(age:13))
+        user = Person.new(@params)
         expect(user.greet).to eq '僕はたろうです'
+      end
+    end
+  end
+end
+
+describe Person do
+  describe '#greet' do
+    let(:user){Person.new(params)}
+    let(:params){{name: 'たろう', age: age}}
+    subject{user.greet}
+    context  '12歳以下の場合' do
+      let(:age){12}
+      it 'ひらがなで答えること' do
+        is_expected.to eq 'ぼくはたろうだよ'
+      end
+    end
+    context '13歳以上の場合、' do
+      let(:age){13}
+      it '漢字で答えること' do
+        is_expected.to eq '僕はたろうです'
       end
     end
   end
