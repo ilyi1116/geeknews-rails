@@ -74,18 +74,40 @@ describe Person do
   end
 end
 
+# use shared_context
 describe Person do
   describe '#greet' do
     let(:user){Person.new(params)}
     let(:params){{name: 'たろう', age: age}}
+    shared_context '12歳以下の場合' do
+      let(:age){12}
+    end
+    shared_context '13歳以上の場合' do
+      let(:age){13}
+    end
     subject{user.greet}
     context  '12歳以下の場合' do
+      include_context  '12歳以下の場合' do
+        it { is_expected.to eq 'ぼくはたろうだよ'}
+      end
+    end
+    context '13歳以上の場合' do
+      include_context '13歳以上の場合' do
+        it { is_expected.to eq '僕はたろうです'}
+      end
+    end
+  end
+
+  describe '#child?' do
+    let(:user){Person.new(name: 'たろう', age: age)}
+    subject{ user.child? }
+    context  '12歳以下の場合' do
       let(:age){12}
-      it { is_expected.to eq 'ぼくはたろうだよ'}
+      it { is_expected.to eq true }
     end
     context '13歳以上の場合、' do
       let(:age){13}
-      it { is_expected.to eq '僕はたろうです'}
+      it { is_expected.to eq false }
     end
   end
 end
