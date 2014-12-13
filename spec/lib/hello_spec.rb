@@ -111,3 +111,26 @@ describe Person do
     end
   end
 end
+
+# skelton
+describe Person do
+  describe '#good_by' do
+    context '12歳以下の場合' do
+      it 'ひらがなでさよならすること'
+    end
+    context '13歳以上の場合' do
+      it '漢字でさよならすること'
+    end
+  end
+end
+
+describe 'true/false' do
+  context 'trueの場合' do
+    it 'trueを返すこと' do
+    end
+  end
+  context 'falseの場合' do
+    it 'falseを返すこと' do
+    end
+  end
+end
